@@ -1,0 +1,53 @@
+CREATE TABLE Center
+(
+  cenName VARCHAR(64) NOT NULL,
+  cenID VARCHAR(2) NOT NULL,
+  PRIMARY KEY (cenID)
+);
+
+INSERT INTO center (cenID, cenName)
+VALUES
+    ('EL', 'Elms'),
+    ('FG', 'Forest Glen'),
+    ('GR', 'Grove'),
+    ('LD', 'Lindell'),
+    ('PW', 'Petawa'),
+    ('SB', 'Shellbourne'),
+    ('SL', 'Sherlake'),
+    ('SH', 'Southold');
+
+CREATE TABLE Event
+(
+  eID VARCHAR NOT NULL,
+  eLocation VARCHAR NOT NULL,
+  eName VARCHAR NOT NULL,
+  eDate DATE NOT NULL,
+  eAudience CHAR(2) NOT NULL,
+  eCategory VARCHAR NOT NULL,
+  PRIMARY KEY (eID)
+);
+
+INSERT INTO event (eID, eLocation, eName, eDate, eAudience, eCategory)
+VALUES
+    ('093022ms_wksp', 'Grove', 'Goal Setting', '2022-09-30', 'ms', 'workshop'),
+    ('012023ms_wksp', 'Grove', 'Study Techniques', '2023-01-20', 'ms', 'workshop'),
+    ('121622ms_service', 'St. Anne''s', 'Food Pantry', '2022-12-16', 'ms', 'service'),
+    ('093022hs_workshop', 'Sherlake', 'Optimal Work', '2022-09-30', 'hs', 'workshop'),
+    ('100722hs_workshop', 'Grove', 'Leadership', '2022-10-07', 'hs', 'workshop'),
+    ('041322hs_workshop', 'Lindell', 'Building Character', '2022-04-13', 'hs', 'workshop'),
+    ('031622hs_workshop', 'Sherlake', 'Leadership', '2022-03-16', 'hs', 'workshop'),
+    ('100622hs_workshop', 'Sherlake', 'Building Habits', '2022-10-06', 'hs', 'workshop'),
+    ('111822hs_service', 'St. Anne''s', 'Food Pantry', '2022-11-18', 'hs', 'service'),
+    ('051823hs_service', 'Arbor Care', 'Visit to Elderly', '2023-05-18', 'hs', 'service'),
+    ('110422hs_retreat', 'Shellbourne', 'HS Fall Retreat', '2022-11-04', 'hs', 'retreat'),
+    ('032323hs_retreat', 'Shellbourne', 'HS Spring Retreat', '2023-03-23', 'hs', 'retreat'),
+    ('121722hs_other', 'Sherlake', 'Christmas Party', '2022-12-17', 'hs', 'other'),
+    ('102822co_workshop', 'Elms', 'Optimal Work', '2022-10-28', 'co', 'workshop'),
+    ('120922co_service', 'Elms', 'Visit the Homeless', '2022-12-09', 'co', 'service'),
+    ('021023co_service', 'Southold', 'Visit the Homeless', '2023-02-10', 'co', 'service'),
+    ('032323co_service', 'St. Anne''s', 'Food Pantry', '2023-03-23', 'co', 'service'),
+    ('011323co_retreat', 'Shellbourne', 'College Winter Retreat', '2023-01-13', 'co', 'retreat'),
+    ('042023co_retreat', 'Shellbourne', 'College Spring Retreat', '2023-04-20', 'co', 'retreat'),
+    ('110622co_other', 'Southold', 'Dinner', '2022-11-06', 'co', 'other'),
+    ('032623co_other', 'Southold', 'Dinner', '2023-03-26', 'co', 'other'),
+    ('042823co_other', 'Elms', 'Movie Night', '2023-04-28', 'co', 'other');

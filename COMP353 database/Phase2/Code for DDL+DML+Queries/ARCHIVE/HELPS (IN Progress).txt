@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS HELPS CASCADE;
+
+CREATE TABLE HELPS (vID VARCHAR Not Null, eID VARCHAR Not Null,
+Primary Key(vID,eID),
+Foreign Key(vID) References Volunteer(vID),
+Foreign Key(eID) References Event(eID))
+;
+
+INSERT INTO HELPS(vID, eID) VALUES
+('V01',''),
+('V05', ''),
+('V11', ''),
+('V08', ''),
+('V03', '');
+

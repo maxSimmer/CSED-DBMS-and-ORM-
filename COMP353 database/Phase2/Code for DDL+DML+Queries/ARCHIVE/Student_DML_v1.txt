@@ -1,0 +1,154 @@
+/*YOUTHPROGRAM Database
+Center(cenID, cenName)
+Student(sID, sFirst, sLast, sPhoneNumber, sBday, sLevel, sLeadership, sParentAlum, sEmergencyPhone, cenID)
+Class(cID, cLevel, cDate, cTopic, cenID)
+PermStaff(pID, pFirst, pLast, pEmail, pPhoneNumber, pTrainStatus, pTrainExp, cenID)
+Volunteer(vID,vFirst, vLast, vPhoneNumber, vEmail, vTrainStatus, vTrainExp)
+Event(eID, eLocation, eName, eDate, eAudience, eCategory)
+Takes(cID, sID)
+Teaches(cID, pID)
+Runs(pID, eID)
+Attends(sID, eID)
+Helps(vID, eID)*/
+DROP TABLE IF EXISTS Center CASCADE;
+DROP TABLE IF EXISTS Student CASCADE;
+DROP TABLE IF EXISTS Class CASCADE;
+DROP TABLE IF EXISTS PermStaff CASCADE;
+DROP TABLE IF EXISTS Volunteer CASCADE;
+DROP TABLE IF EXISTS Event CASCADE;
+DROP TABLE IF EXISTS Takes CASCADE;
+DROP TABLE IF EXISTS Teaches CASCADE;
+DROP TABLE IF EXISTS Runs CASCADE;
+DROP TABLE IF EXISTS Attends CASCADE;
+DROP TABLE IF EXISTS Helps CASCADE;
+
+CREATE TABLE Center
+(
+  cenName VARCHAR NOT NULL,
+  cenID VARCHAR(2) NOT NULL,
+  PRIMARY KEY (cenID)
+);
+
+INSERT INTO Center (cenID, cenName)
+VALUES
+('EL', 'Elms'),
+('FG', 'Forest Glen'),
+('GR', 'Grove'),
+('LD', 'Lindell'),
+('PW', 'Petawa'),
+('SB', 'Shellbourne'),
+('SL', 'Sherlake'),
+('SH', 'Southold');
+
+CREATE TABLE Student
+(
+  sID VARCHAR PRIMARY KEY,
+  sFirst VARCHAR NOT NULL,
+  sLast VARCHAR NOT NULL,
+  sPhoneNumber VARCHAR(12) NOT NULL,
+  sBday DATE NOT NULL,
+  sLevel VARCHAR NOT NULL
+	check (sLevel in ('co', 'hs', 'ms', 'ot')),
+  sLeadership VARCHAR,
+  sParentAlum VARCHAR,
+  sEmergencyPhone VARCHAR NOT NULL,
+  cenID VARCHAR(2) NOT NULL,
+  FOREIGN KEY (cenID) REFERENCES Center(cenID)
+);
+
+INSERT INTO Student (sID,sFirst,sLast,sPhoneNumber,sBday,sLevel,sLeadership,sParentAlum,sEmergencyPhone,cenID)
+VALUES
+('LeKoch','Leah','Koch','331-336-8319',to_date('01/05/05', 'MM/DD/YY'),'co','yes',NULL,'738-495-2160','EL'),
+('SaJohnson','Sarah','Johnson','847-874-3158',to_date('03/26/01', 'MM/DD/YY'),'co',NULL,NULL,'624-809-7315','EL'),
+('RyWilliams','Ryan','Williams','331-924-7168',to_date('09/15/01', 'MM/DD/YY'),'co',NULL,'yes','583-672-9140','EL'),
+('EmDavis','Emily','Davis','312-565-0293',to_date('06/02/02', 'MM/DD/YY'),'co','yes','yes','459-218-6370','EL'),
+('DaMartinez','Daniel','Martinez','618-947-1162',to_date('07/14/03', 'MM/DD/YY'),'co',NULL,NULL,'726-493-5180','EL'),
+('OlSmith','Olivia','Smith','708-479-2157',to_date('12/13/01', 'MM/DD/YY'),'co','yes',NULL,'362-840-1597','EL'),
+('MaTaylor','Matthew','Taylor','773-466-6844',to_date('08/24/01', 'MM/DD/YY'),'co','yes','yes','950-286-4713','EL'),
+('AvBrown','Ava','Brown','847-647-9798',to_date('10/05/04', 'MM/DD/YY'),'co','yes',NULL,'817-496-3250','EL'),
+('AlLee','Alexander','Lee','331-805-3950',to_date('11/29/02', 'MM/DD/YY'),'co',NULL,NULL,'204-736-9815','EL'),
+('ChAnderson','Chloe','Anderson','312-384-6007',to_date('01/12/05', 'MM/DD/YY'),'hs',NULL,NULL,'675-892-3140','GR'),
+('BeWilson','Ben','Wilson','847-256-5819',to_date('02/05/06', 'MM/DD/YY'),'hs','yes',NULL,'384-762-9150','GR'),
+('MiClark','Mia','Clark','618-184-7893',to_date('03/20/05', 'MM/DD/YY'),'hs','yes','yes','123-450-8976','GR'),
+('SaWhite','Samuel','White','331-798-6579',to_date('04/08/05', 'MM/DD/YY'),'hs','yes','yes','892-731-6450','GR'),
+('ChHall','Charlotte','Hall','618-670-1205',to_date('05/16/06', 'MM/DD/YY'),'hs',NULL,'yes','657-234-1890','GR'),
+('AmRodriguez','Amelia','Rodriguez','224-889-4751',to_date('06/25/06', 'MM/DD/YY'),'hs','yes',NULL,'941-582-7306','GR'),
+('HeAdams','Henry','Adams','312-431-9277',to_date('07/09/05', 'MM/DD/YY'),'hs','yes',NULL,'392-687-4150','GR'),
+('NoMitchell','Noah','Mitchell','630-675-4148',to_date('08/14/08', 'MM/DD/YY'),'hs',NULL,NULL,'546-123-7890','GR'),
+('LiGreen','Lily','Green','630-675-4148',to_date('09/02/06', 'MM/DD/YY'),'hs',NULL,NULL,'289-456-1073','GR'),
+('JaMoore','James','Moore','773-971-9466',to_date('10/18/06', 'MM/DD/YY'),'hs',NULL,NULL,'810-946-2357','GR'),
+('SoParker','Sofia','Parker','224-416-4139',to_date('11/27/05', 'MM/DD/YY'),'hs','yes','yes','631-487-5290','GR'),
+('LiWilson','Liam','Wilson','847-795-4328',to_date('08/15/09', 'MM/DD/YY'),'ms',NULL,NULL,'407-895-3621','GR'),
+('WiHarris','William','Harris','708-778-0943',to_date('11/03/09', 'MM/DD/YY'),'ms','yes',NULL,'263-750-8149','GR'),
+('IsRodriguez','Isabella','Rodriguez','618-215-1850',to_date('03/22/10', 'MM/DD/YY'),'ms','yes','yes','859-234-1760','GR'),
+('JaThomas','Jackson','Thomas','630-914-3122',to_date('07/09/11', 'MM/DD/YY'),'ms','yes',NULL,'512-406-7983','GR'),
+('MiSmith','Michael','Smith','312-385-6097',to_date('10/12/10', 'MM/DD/YY'),'ms',NULL,NULL,'746-931-5208','GR'),
+('OlBrown','Olivia','Brown','485-726-9134',to_date('01/05/09', 'MM/DD/YY'),'ms',NULL,'yes','372-916-5840','GR'),
+('WiTaylor','William','Taylor','629-384-7150',to_date('05/18/10', 'MM/DD/YY'),'ms',NULL,NULL,'981-734-6025','GR'),
+('AvAnderson','Ava','Anderson','314-902-8765',to_date('09/30/10', 'MM/DD/YY'),'ms','yes',NULL,'451-820-3796','GR'),
+('BeLee','Benjamin','Lee','572-913-4680',to_date('12/08/09', 'MM/DD/YY'),'ms',NULL,NULL,'617-482-3905','GR'),
+('ZoCooper','Zoe','Cooper','718-649-2053',to_date('06/08/08', 'MM/DD/YY'),'hs','yes','yes','586-042-3179','PW'),
+('LoWard','Logan','Ward','109-785-4326',to_date('08/24/05', 'MM/DD/YY'),'hs','yes',NULL,'295-607-3841','PW'),
+('ViMurphy','Victoria','Murphy','587-364-1029',to_date('03/17/08', 'MM/DD/YY'),'hs','yes',NULL,'730-149-8256','PW'),
+('JaStewart','Jackson','Stewart','236-458-9701',to_date('10/29/06', 'MM/DD/YY'),'hs',NULL,NULL,'165-429-7380','PW'),
+('EmRivera','Emma','Rivera','890-612-3475',to_date('01/14/08', 'MM/DD/YY'),'hs',NULL,NULL,'493-176-2805','PW'),
+('DaCarter','Daniel','Carter','456-210-7893',to_date('07/05/07', 'MM/DD/YY'),'hs','yes','yes','714-085-2369','PW'),
+('AdReed','Addison','Reed','721-098-4365',to_date('12/25/05', 'MM/DD/YY'),'hs',NULL,NULL,'369-814-5270','PW'),
+('AnRoss','Andrew','Ross','304-917-5826',to_date('05/02/06', 'MM/DD/YY'),'hs','yes',NULL,'872-301-4965','PW'),
+('ElYoung','Ella','Young','638-574-2901',to_date('02/09/06', 'MM/DD/YY'),'hs','yes',NULL,'504-972-6183','PW'),
+('CaMitchell','Caleb','Mitchell','549-302-6871',to_date('11/12/07', 'MM/DD/YY'),'hs',NULL,'yes','610-934-8275','PW'),
+('LiWood','Lily','Wood','765-219-8340',to_date('09/22/08', 'MM/DD/YY'),'hs',NULL,NULL,'283-650-1794','PW'),
+('LiScott','Liam','Scott','823-705-6491',to_date('04/18/05', 'MM/DD/YY'),'hs',NULL,NULL,'971-245-8063','PW'),
+('AbMorris','Abigail','Morris','193-284-5067',to_date('06/29/06', 'MM/DD/YY'),'hs','yes',NULL,'376-289-5401','SB'),
+('ZaParker','Zach','Parker','408-576-3921',to_date('08/14/07', 'MM/DD/YY'),'hs','yes','yes','219-674-8503','SB'),
+('ErHayes','Ericka','Hayes','796-125-8340',to_date('03/07/07', 'MM/DD/YY'),'hs',NULL,NULL,'465-312-7890','SB'),
+('EmSullivan','Emily','Sullivan','678-149-2053',to_date('10/08/05', 'MM/DD/YY'),'hs','yes','yes','850-129-3467','SB'),
+('SoThompson','Sophia','Thompson','295-748-6130',to_date('01/21/09', 'MM/DD/YY'),'hs',NULL,NULL,'792-438-5016','SB'),
+('JaMorris','Jackson','Morris','437-289-6105',to_date('07/19/06', 'MM/DD/YY'),'hs',NULL,'yes','136-724-5980','SB'),
+('MiStewart','Mia','Stewart','180-725-9364',to_date('12/11/05', 'MM/DD/YY'),'hs','yes',NULL,'408-917-6253','SB'),
+('MaHernandez','Marie','Hernandez','610-245-7983',to_date('05/26/07', 'MM/DD/YY'),'hs','yes',NULL,'567-812-4309','SB'),
+('OwCarter','Owen','Carter','954-682-3017',to_date('02/15/06', 'MM/DD/YY'),'hs',NULL,'yes','305-246-9817','SB'),
+('JoPeterson','Joseph','Peterson','276-804-9135',to_date('11/10/09', 'MM/DD/YY'),'hs','yes',NULL,'924-871-3560','SB'),
+('NiJohnson','Nicholas','Johnson','542-970-1863',to_date('09/05/08', 'MM/DD/YY'),'hs',NULL,'yes','738-019-4652','SB'),
+('LuWilson','Luke','Wilson','832-167-4950',to_date('04/10/07', 'MM/DD/YY'),'hs',NULL,NULL,'632-184-7905','SB'),
+('BrMitchell','Brayden','Mitchell','691-237-8045',to_date('02/14/09', 'MM/DD/YY'),'ms',NULL,NULL,'514-627-8309','SL'),
+('NoClark','Nora','Clark','174-609-2385',to_date('06/04/10', 'MM/DD/YY'),'ms','yes','yes','697-230-4851','SL'),
+('JaLee','Jaxon','Lee','365-892-4701',to_date('08/27/09', 'MM/DD/YY'),'ms','yes','yes','890-245-3617','SL'),
+('LiNyugen','Lisa','Nyugen','972-830-1456',to_date('11/11/10', 'MM/DD/YY'),'ms',NULL,NULL,'345-769-1820','SL'),
+('DaMontgomery','David','Montgomery','536-478-9120',to_date('04/07/09', 'MM/DD/YY'),'ms','yes',NULL,'271-398-4605','SL'),
+('StHoffman','Stephanie','Hoffman','890-372-5146',to_date('07/20/11', 'MM/DD/YY'),'ms',NULL,'yes','506-738-1294','SL'),
+('StGuzman','Steven','Guzman','140-785-9623',to_date('09/02/09', 'MM/DD/YY'),'ms','yes',NULL,'928-453-1760','SL'),
+('BrRodgers','Brett','Rodgers','862-195-3470',to_date('12/31/10', 'MM/DD/YY'),'ms','yes',NULL,'763-491-8250','SL'),
+('LoShaw','Lorena','Shaw','429-083-6715',to_date('03/01/09', 'MM/DD/YY'),'ms',NULL,NULL,'123-590-4678','SL'),
+('SaGardner','Sara','Gardner','713-690-2458',to_date('05/12/10', 'MM/DD/YY'),'ms',NULL,NULL,'419-587-2360','SL'),
+('LoCunningham','Louise','Cunningham','807-912-3465',to_date('06/27/06', 'MM/DD/YY'),'hs',NULL,'yes','874-062-9315','SL'),
+('AnEllis','Andrew','Ellis','346-981-2570',to_date('08/09/08', 'MM/DD/YY'),'hs','yes',NULL,'965-432-0781','SL'),
+('ClHammond','Clara','Hammond','215-876-3490',to_date('03/27/08', 'MM/DD/YY'),'hs','yes',NULL,'346-281-0975','SL'),
+('TaOsborne','Tanya','Osborne','574-308-1629',to_date('10/04/07', 'MM/DD/YY'),'hs',NULL,NULL,'283-961-4750','SL'),
+('JoHopkins','Joey','Hopkins','968-145-7320',to_date('01/30/06', 'MM/DD/YY'),'hs',NULL,NULL,'507-984-2163','SL'),
+('EmSchneider','Emma','Schneider','341-205-7968',to_date('07/08/08', 'MM/DD/YY'),'hs','yes','yes','619-827-5304','SL'),
+('ArJensen','Arthur','Jensen','528-467-9130',to_date('12/15/05', 'MM/DD/YY'),'hs',NULL,NULL,'652-140-3897','SL'),
+('CaFlores','Carroll','Flores','629-781-0435',to_date('05/15/06', 'MM/DD/YY'),'hs','yes',NULL,'430-789-2165','SL'),
+('CeCollier','Cecil','Collier','195-634-8720',to_date('02/23/07', 'MM/DD/YY'),'hs','yes',NULL,'728-391-0546','SL'),
+('LeMorris','Leslie','Morris','478-921-6053',to_date('11/21/06', 'MM/DD/YY'),'hs','yes','yes','296-741-5380','SL'),
+('JoJohnson','John','Johnson','573-629-1480',to_date('09/13/08', 'MM/DD/YY'),'hs',NULL,'yes','981-276-4305','SL'),
+('PaWhite','Paul','White','204-789-6135',to_date('04/25/05', 'MM/DD/YY'),'hs',NULL,NULL,'543-219-6780','SL'),
+('LeYates','Lela','Yates','436-982-5701',to_date('06/02/07', 'MM/DD/YY'),'hs','yes',NULL,'205-964-1873','SL'),
+('NoWarner','Noah','Warner','681-093-2475',to_date('08/31/06', 'MM/DD/YY'),'hs','yes',NULL,'486-321-0957','SH'),
+('LeRuiz','Lena','Ruiz','903-817-6425',to_date('03/04/08', 'MM/DD/YY'),'hs',NULL,NULL,'317-289-5046','SH'),
+('FaCasey','Faith','Casey','372-546-8019',to_date('10/01/07', 'MM/DD/YY'),'hs',NULL,NULL,'950-428-3671','SH'),
+('MaHudson','Maria','Hudson','615-794-0283',to_date('11/10/03', 'MM/DD/YY'),'co','yes','yes','760-348-1295','SH'),
+('JaStevenson','Jake','Stevenson','287-415-0936',to_date('04/02/05', 'MM/DD/YY'),'co','yes',NULL,'621-594-0837','SH'),
+('CaBlake','Carter','Blake','549-861-2730',to_date('09/14/01', 'MM/DD/YY'),'co',NULL,NULL,'397-186-2450','SH'),
+('MaRoberts','Maria','Roberts','209-781-3645',to_date('02/08/04', 'MM/DD/YY'),'co',NULL,NULL,'185-762-3490','SH'),
+('MaMartinez','Marta','Martinez','836-241-9705',to_date('05/20/03', 'MM/DD/YY'),'co',NULL,NULL,'349-275-6108','SH'),
+('OlBurns','Olivia','Burns','794-083-1625',to_date('08/17/05', 'MM/DD/YY'),'co',NULL,'yes','702-918-4356','SH'),
+('CaGrant','Casey','Grant','523-746-8901',to_date('12/31/02', 'MM/DD/YY'),'co','yes','yes','518-439-2760','SH'),
+('KaFleming','Karla','Fleming','461-208-9375',to_date('07/05/04', 'MM/DD/YY'),'co','yes','yes','864-207-9315','SH'),
+('RoHunter','Rosalie','Hunter','972-431-6085',to_date('03/25/01', 'MM/DD/YY'),'co',NULL,NULL,'294-158-7603','SH'),
+('HaMcguire','Harper','Mcguire','134-205-7896',to_date('10/13/03', 'MM/DD/YY'),'co','yes',NULL,'637-819-2045','SH'),
+('LoMiller','Logan','Miller','795-843-2610',to_date('01/03/05', 'MM/DD/YY'),'co','yes',NULL,'970-582-3164','SH'),
+('LuGomez','Lucia','Gomez','680-324-7915',to_date('06/09/02', 'MM/DD/YY'),'co','yes','yes','541-283-0976','SH'),
+('KeFisher','Kendra','Fisher','215-479-3608',to_date('11/18/04', 'MM/DD/YY'),'co',NULL,NULL,'326-845-7190','SH'),
+('MaBecker','Mary','Becker','769-804-2315',to_date('04/14/01', 'MM/DD/YY'),'co',NULL,NULL,'187-420-9365','SH'),
+('SoMorgan','Sofia','Morgan','301-874-5926',to_date('09/28/03', 'MM/DD/YY'),'co',NULL,NULL,'913-684-2705','SH');

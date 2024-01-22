@@ -1,0 +1,25 @@
+CREATE TABLE Volunteer
+(
+  vID VARCHAR NOT NULL,
+  vFirst VARCHAR NOT NULL,
+  vLast VARCHAR NOT NULL,
+  vPhoneNumber VARCHAR(12) NOT NULL,
+  vEmail VARCHAR NOT NULL,
+  vTrainStatus VARCHAR NOT NULL,
+  vTrainExp DATE NOT NULL,
+  PRIMARY KEY (vID)
+);
+
+INSERT INTO Volunteer (vID, vFirst, vLast, vPhoneNumber, vEmail, vTrainStatus, vTrainExp)
+VALUES
+    ('V01', 'Jane', 'Angel', '333-444-5567', 'janeangel1@gmail.com', 'good', '2024-10-16'),
+    ('V02', 'David', 'Smith', '111-224-3378', 'davidsmith@outlook.com', 'good', '2024-11-23'),
+    ('V03', 'Angela', 'Precious', '208-447-5583', 'angelaprecious3@hotmail.com', 'good', '2024-06-04'),
+    ('V04', 'Leroy', 'Prescot', '305-456-7890', 'leroyprescot14@gmail.com', 'good', '2025-02-24'),
+    ('V05', 'Adam', 'Jake', '224-527-8765', 'adamjake@msn.com', 'initiated', NULL),
+    ('V06', 'Logan', 'Peter', '220-657-7890', 'loganpeter@outlook.com', 'good', '2024-08-19'),
+    ('V07', 'Toby', 'Tyler', '451-567-6578', 'tobytyler@gmail.com', 'initiated', NULL),
+    ('V08', 'Tyson', 'Chandler', '312-876-4521', 'tysonchandler@msn.com', 'flag', '2024-09-14'),
+    ('V09', 'Mary', 'Lovely', '512-489-0081', 'marylovely@gmail.com', 'good', '2025-04-16'),
+    ('V10', 'James', 'Richard', '444-012-6890', 'jamesrichard12@outlook.com', 'good', '2024-07-15');
+

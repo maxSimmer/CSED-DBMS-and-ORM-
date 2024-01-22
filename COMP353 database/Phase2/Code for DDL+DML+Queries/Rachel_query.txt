@@ -1,0 +1,12 @@
+/*Average # of students attending classes of a class level per center*/
+
+
+SELECT cenName, cLevel, num_students/num_classes as avg_students_per_class 
+FROM (/* find the total number of classes of a particular level offered at each center  
+		and the total number of students who have attended those classes*/ 
+		SELECT C.cenID, C.cenName, CL.cLevel, count(S.sID) as num_students, count(distinct CL.cID) as num_classes 
+		FROM student S, takes T, class CL, center C  
+		WHERE S.sID = T.sID and T.cID = CL.cID and CL.cenID = C.cenID 
+		GROUP BY CL.clevel, C.cenID, C.cenName) 
+GROUP BY cLevel, cenID, cenName, num_students, num_classes 
+ORDER BY cenName; 

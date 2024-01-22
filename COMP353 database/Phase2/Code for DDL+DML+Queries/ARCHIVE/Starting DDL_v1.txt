@@ -1,0 +1,144 @@
+--This is STARTING DDL code. Each of us can edit assigned tables as needed, add any constraints from uncaptured constraints section (for example, see Phase2 sample doc DDL with "check"), and upload the DDL and relevant insert statements for our assigned tables to the folder as an individual txt file (per person).--
+
+
+
+/*YOUTHPROGRAM Database
+Center(cenID, cenName)
+Student(sID, sFirst, sLast, sPhoneNumber, sBday, sLevel, sLeadership, sParentAlum, sEmergencyPhone, cenID)
+Class(cID, cLevel, cDate, cTopic, cenID)
+PermStaff(pID, pFirst, pLast, pEmail, pPhoneNumber, pTrainStatus, pTrainExp, cenID)
+Volunteer(vID,vFirst, vLast, vPhoneNumber, vEmail, vTrainStatus, vTrainExp)
+Event(eID, eLocation, eName, eDate, eAudience, eCategory)
+Takes(cID, sID)
+Teaches(cID, pID)
+Runs(pID, eID)
+Attends(sID, eID)
+Helps(vID, eID)*/
+DROP TABLE IF EXISTS Center CASCADE;
+DROP TABLE IF EXISTS Student CASCADE;
+DROP TABLE IF EXISTS Class CASCADE;
+DROP TABLE IF EXISTS PermStaff CASCADE;
+DROP TABLE IF EXISTS Volunteer CASCADE;
+DROP TABLE IF EXISTS Event CASCADE;
+DROP TABLE IF EXISTS Takes CASCADE;
+DROP TABLE IF EXISTS Teaches CASCADE;
+DROP TABLE IF EXISTS Runs CASCADE;
+DROP TABLE IF EXISTS Attends CASCADE;
+DROP TABLE IF EXISTS Helps CASCADE;
+
+
+CREATE TABLE Center
+(
+  cenName VARCHAR NOT NULL,
+  cenID VARCHAR(2) NOT NULL,
+  PRIMARY KEY (cenID)
+);
+
+CREATE TABLE Student
+(
+  sID VARCHAR NOT NULL,
+  sFirst VARCHAR NOT NULL,
+  sLast VARCHAR NOT NULL,
+  sPhoneNumber VARCHAR(12) NOT NULL,
+  sBday DATE NOT NULL,
+  sLevel VARCHAR NOT NULL,
+  sLeadership VARCHAR,
+  sParentAlum VARCHAR,
+  sEmergencyPhone VARCHAR NOT NULL,
+  cenID VARCHAR(2) NOT NULL,
+  PRIMARY KEY (sID),
+  FOREIGN KEY (cenID) REFERENCES Center(cenID)
+);
+
+CREATE TABLE Class
+(
+  cID VARCHAR(10) NOT NULL,
+  cLevel CHAR(2) NOT NULL,
+  cDate DATE NOT NULL,
+  cTopic VARCHAR NOT NULL,
+  cenID VARCHAR(2) NOT NULL,
+  PRIMARY KEY (cID),
+  FOREIGN KEY (cenID) REFERENCES Center(cenID)
+);
+
+CREATE TABLE PermStaff
+(
+  pID VARCHAR NOT NULL,
+  pFirst VARCHAR NOT NULL,
+  pLast VARCHAR NOT NULL,
+  pEmail VARCHAR NOT NULL,
+  pPhoneNumber VARCHAR(12) NOT NULL,
+  pTrainStatus VARCHAR NOT NULL,
+  pTrainExp DATE NOT NULL,
+  cenID VARCHAR(2) NOT NULL,
+  PRIMARY KEY (pID),
+  FOREIGN KEY (cenID) REFERENCES Center(cenID)
+);
+
+CREATE TABLE Volunteer
+(
+  vID VARCHAR NOT NULL,
+  vFirst VARCHAR NOT NULL,
+  vLast VARCHAR NOT NULL,
+  vPhoneNumber VARCHAR(12) NOT NULL,
+  vEmail VARCHAR NOT NULL,
+  vTrainStatus VARCHAR NOT NULL,
+  vTrainExp DATE NOT NULL,
+  PRIMARY KEY (vID)
+);
+
+CREATE TABLE Event
+(
+  eID VARCHAR NOT NULL,
+  eLocation VARCHAR NOT NULL,
+  eName VARCHAR NOT NULL,
+  eDate DATE NOT NULL,
+  eAudience CHAR(2) NOT NULL,
+  eCategory VARCHAR NOT NULL,
+  PRIMARY KEY (eID)
+);
+
+CREATE TABLE Takes
+(
+  cID VARCHAR(10) NOT NULL,
+  sID VARCHAR NOT NULL,
+  PRIMARY KEY (cID, sID),
+  FOREIGN KEY (cID) REFERENCES Class(cID),
+  FOREIGN KEY (sID) REFERENCES Student(sID)
+);
+
+CREATE TABLE Teaches
+(
+  cID VARCHAR(10) NOT NULL,
+  pID VARCHAR NOT NULL,
+  PRIMARY KEY (cID, pID),
+  FOREIGN KEY (cID) REFERENCES Class(cID),
+  FOREIGN KEY (pID) REFERENCES PermStaff(pID)
+);
+
+CREATE TABLE Runs
+(
+  pID VARCHAR NOT NULL,
+  eID VARCHAR NOT NULL,
+  PRIMARY KEY (pID, eID),
+  FOREIGN KEY (pID) REFERENCES PermStaff(pID),
+  FOREIGN KEY (eID) REFERENCES Event(eID)
+);
+
+CREATE TABLE Attends
+(
+  sID VARCHAR NOT NULL,
+  eID VARCHAR NOT NULL,
+  PRIMARY KEY (sID, eID),
+  FOREIGN KEY (sID) REFERENCES Student(sID),
+  FOREIGN KEY (eID) REFERENCES Event(eID)
+);
+
+CREATE TABLE Helps
+(
+  vID VARCHAR NOT NULL,
+  eID VARCHAR NOT NULL,
+  PRIMARY KEY (vID, eID),
+  FOREIGN KEY (vID) REFERENCES Volunteer(vID),
+  FOREIGN KEY (eID) REFERENCES Event(eID)
+);

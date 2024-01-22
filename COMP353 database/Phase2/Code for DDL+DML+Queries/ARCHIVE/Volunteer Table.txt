@@ -1,0 +1,18 @@
+DROP TABLE IF EXISTS Volunteer CASCADE;
+
+CREATE TABLE Volunteer (VID VARCHAR Not Null , vFirst VARCHAR, vlast VARCHAR, vPhoneNumber numeric, pTrainStatus VARCHAR, PTrainExp Numeric NULL,
+Primary Key(VID))
+;
+
+INSERT INTO Volunteer(VID, vfirst, vlast, vPhonenumber, pTrainStatus, PtrainExp) VALUES
+('V01', 'Jane', 'Angel', 333-444-5567, 'Passed', 2024),
+('V02', 'David', 'Smith', 111-224-3378, 'passed', 2024),
+('V03', 'Angela', 'Precious', 208-447-5583, 'inactive', Null),
+('V04', 'Leroy', 'Prescot', 305-456-7890, 'passed', 2025),
+('V05', 'Adam', 'Jake', 224-527-8765, 'inactive', Null),
+('V06', 'Logan', 'Peter', 220-657-7890, 'passed', 2024),
+('V07', 'Toby', 'Tyler', 451-567-6578, 'In Progress',Null),
+('V08', 'Tyson' , 'Chandler', 312-876-4521, 'Passed', 2025),
+('V09', 'Mary' , 'Lovely', 512-489-0081, 'In Progress',Null),
+('V10', 'James', 'Richard', 444-012-6890, 'passed', 2024),
+('V11', 'Damon', 'Levi', 312-872-7623, 'passed', 2023);

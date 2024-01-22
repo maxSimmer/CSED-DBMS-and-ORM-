@@ -1,0 +1,17 @@
+/*Query: leadershipGroupClassAttendance (Taylor)*/
+SELECT Cen.cenName, Tot.cLevel, TotalStudentCount, LeadershipStudentCount
+FROM Center Cen,
+/*Query for count of distinct students attending classes that are part of leadership group*/
+(SELECT C.cenID, C.cLevel, count(distinct S.sID) as LeadershipStudentCount
+ FROM Student S, Takes T, Class C
+ WHERE T.sID=S.sID and C.cID=T.cID and S.sLeadership='yes'
+ GROUP BY C.cenID, c.cLevel
+) Lead,
+/*Query for count of total distinct students attending classes*/
+(SELECT C.cenID, C.cLevel, count(distinct S.sID) as TotalStudentCount
+ FROM Student S, Takes T, Class C
+ WHERE T.sID=S.sID and C.cID=T.cID
+ GROUP BY C.cenID, c.cLevel
+) Tot
+WHERE Lead.cenID=Tot.cenID and Lead.cLevel=Tot.cLevel and Lead.cenID=Cen.cenID
+ORDER By Cen.cenName, Tot.cLevel

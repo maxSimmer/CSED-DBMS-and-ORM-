@@ -1,0 +1,25 @@
+#Query: DistinctStudentsAttendingClasses (Taylor)
+#For each center at each class level, find the number of distinct students taking classes.
+#Order by descending student count, then center name.
+
+from sqlalchemy import func, desc
+#session = Session(engine)
+
+stmt = (
+    select(
+        Center.cenname,
+        Class.clevel,
+        func.count(func.distinct(Takes.sid)).label("student_count")
+        )
+    .join(Class, Center.cenid == Class.cenid) 
+    .join(Takes, Class.cid == Takes.cid) 
+    .group_by(Center.cenid, Center.cenname, Class.clevel)
+    .order_by(desc(func.count(func.distinct(Takes.sid))), Center.cenname) #order by descending student_count, then center name
+    )
+
+print('\n#Query: DistinctStudentsAttendingClasses (Taylor)#')
+student_counts = session.execute(stmt)
+for entry in student_counts:
+    print(
+        f"CenterName: {entry.cenname}, ClassLevel: {entry.clevel}, DistinctStudents: {entry.student_count}"
+        )    

@@ -1,0 +1,12 @@
+SELECT
+    s.sID AS StudentID,
+    s.sFirst AS FirstName,
+    s.sLast AS LastName,
+    COUNT(DISTINCT a.eID) AS numberOfEvents,
+    STRING_AGG(e.eName, ', ' ORDER BY e.eName) AS AttendedEvents
+FROM attends a
+JOIN student s ON a.sID = s.sID
+JOIN event e ON a.eID = e.eID
+GROUP BY s.sID, s.sFirst, s.sLast
+HAVING COUNT(DISTINCT a.eID) > 1
+ORDER BY numberOfEvents DESC;
