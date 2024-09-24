@@ -1,6 +1,6 @@
 # Non-Profit-Youth-Education-DBMS-
 
-Database management system for my group COMP353 project. Creates a relational database and object relational mapped database system for a non-profit youth education organization known as the Centers for Social and Educational Developement (CSED). 
+Database management system for CSED. Creates a relational database and object relational mapped database system for a non-profit youth education organization known as the Centers for Social and Educational Developement (CSED). 
 Company organization and details were given from an employee of the non profit organization.
 
 Features full relational database in Python, SQLAlchemy, and MongoDB. 
